@@ -1,0 +1,48 @@
+{% extends "../base.html" %}
+
+{% block title %}
+| Alumnos
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <h1>Alumnos y talleres</h1>
+    <div class="py-2">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Operacion exitosa.</strong> {{ message }}
+                    <button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <table class="table table-hover" id="tabla-alumnos">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Núm. de Control</th>
+                    <th>Alumno</th>
+                    <th>Taller</th>
+                    <th>Fecha de inscripción</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for a in alumnos %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{a.alumno.numeroControl}}</td>
+                    <td>{{a.alumno.nombreCompleto}}</td>
+                    <td>{{a.taller.codigo}} - {{a.taller.nombre}}</td>
+                    <td>{{a.fechaInscripcion}}</td>
+                    <td>
+                        <a href="/generarDiploma/{{a.pk}}" class="btn btn-info">Diploma</a> 
+                        <a href="/eliminarInscripcion/{{a.pk}}" class="btn btn-danger btnEliminar">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
